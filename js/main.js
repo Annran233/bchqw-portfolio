@@ -259,7 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
         startProgress();
-        window.location.href = url;
+
+        // 给一帧时间渲染进度条，减少视觉卡顿
+        requestAnimationFrame(() => {
+            window.location.href = url;
+        });
     }
 
     document.addEventListener('click', handleNavigation);

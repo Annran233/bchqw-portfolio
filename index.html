@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>北川哈气物</title>
+    <link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="pageBody">
+
+    <div class="hero-bg"></div>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="page-container">
+        
+        <div class="top-bar">
+            <div class="logo" onclick="window.location.href = 'index.html'">
+                <span class="logo-icon">✈</span>
+                <span>MY SITE</span>
+            </div>
+            <div class="menu-btn" onclick="toggleSidebar()">MENU ▾</div>
+        </div>
+
+        <div class="hero-section">
+            <h1 id="mainHeroText">北川哈气物</h1>
+        </div>
+
+        <div class="bottom-grid">
+            <a href="departures.html" class="grid-item" 
+               onmouseenter="changeHeroText('关于')" 
+               onmouseleave="resetHeroText()">
+                <span class="main">关于<span class="arrow">→</span></span>
+                <span class="sub">乘客和送行人员</span>
+            </a>
+            <a href="arrivals.html" class="grid-item" 
+               onmouseenter="changeHeroText('抵达')" 
+               onmouseleave="resetHeroText()">
+                <span class="main">抵达 <span class="arrow">→</span></span>
+                <span class="sub">抵达乘客和接机人员</span>
+            </a>
+            <a href="transit.html" class="grid-item" 
+               onmouseenter="changeHeroText('中转')" 
+               onmouseleave="resetHeroText()">
+                <span class="main">中转 <span class="arrow">→</span></span>
+                <span class="sub">转机乘客</span>
+            </a>
+        </div>
+
+        <div class="site-info">
+            <div class="footer-left">
+                <span>© 2026 北川哈气物 All Rights Reserved | <a href="https://icp.gov.moe/?keyword=20228514" target="_blank" class="icp">萌ICP备20228514号</a></span>
+                <span><a href="/statements.html" class="icp">网站声明</a> | <a href="/privacy.html" class="icp">隐私政策</a> | <a href="https://www.12377.cn" target="_blank" class="icp">网上有害信息举报专区</a> | 亲爱的市民朋友，宁波公安96110系专门针对避免您财产被骗受损而设，请您一旦收到来电，立即接听。</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Cookie 同意横幅 -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>我们使用必要的 Cookie 来确保网站正常运行，并使用可选的 Cookie 来记住您的偏好设置，详情请查看我们的<a href="/privacy.html" class="cookie-link">隐私政策</a>。</p>
+        </div>
+        <div class="cookie-actions">
+            <button id="cookie-necessary" class="cookie-btn cookie-btn-secondary" onclick="setCookieConsent('necessary')">仅必要</button>
+            <button id="cookie-all" class="cookie-btn cookie-btn-primary" onclick="setCookieConsent('all')">允许全部</button>
+        </div>
+    </div>
+
+    <aside>
+        <div class="sidebar-header">
+            <span class="mode-toggle" onclick="toggleDarkMode()">☽ 模式</span>
+            <span class="close-btn" onclick="toggleSidebar()">✕</span>
+        </div>
+        <ul class="side-nav">
+            <li>航班信息</li>
+            <li>机场服务</li>
+            <li>地图导览</li>
+            <li>关于我们</li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>©2020 - 2026 北川哈气物 All Rights Reserved | <a href="https://icp.gov.moe/?keyword=20228514" target="_blank" class="icp">萌ICP备20228514号</a></p>
+        </div>
+    </aside>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

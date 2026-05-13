@@ -139,33 +139,29 @@ body {
     display: flex;
     justify-content: space-between;
     font-size: 0.7rem;
-    opacity: 0.35;
+    opacity: 0.4;
     letter-spacing: 1px;
-    padding-top: 0.5rem;
+    padding-top: 1rem;
     flex-wrap: wrap;
     gap: 0.5rem;
-    color: #000;
-}
-
-body.dark-mode .site-info {
-    color: #fff;
+    color: var(--text);
 }
 
 .footer-left {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    line-height: 1.2;
+    line-height: 1.4;
 }
 
 .footer-left .icp {
-    color: inherit;
+    color: var(--accent);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .footer-left .icp:hover {
-    color: #EE0000;
+    color: #88DDFF;
 }
 
 /* ---- 侧边栏 ---- */

@@ -34,7 +34,11 @@ function setCookieConsent(type) {
         localStorage.setItem('cookieConsent', type);
     }
     
-    // 隐藏横幅
+    hideCookieBanner();
+}
+
+// 隐藏 Cookie 横幅
+function hideCookieBanner() {
     const banner = document.getElementById('cookie-banner');
     if (banner) {
         banner.classList.add('hidden');
@@ -156,11 +160,15 @@ function changeHeroText(text) {
 
     if (h1.innerHTML === newHTML) return;
 
-    h1.style.opacity = '0';
     clearTimeout(heroTimer);
+    
+    h1.classList.remove('fade-in');
+    h1.classList.add('fade-out');
+    
     heroTimer = setTimeout(() => {
         h1.innerHTML = newHTML;
-        h1.style.opacity = '1';
+        h1.classList.remove('fade-out');
+        h1.classList.add('fade-in');
     }, 280);
 }
 
@@ -171,11 +179,15 @@ function resetHeroText() {
     const h1 = document.getElementById('mainHeroText');
     if (h1.innerHTML === ORIGINAL_HERO) return;
 
-    h1.style.opacity = '0';
     clearTimeout(heroTimer);
+    
+    h1.classList.remove('fade-in');
+    h1.classList.add('fade-out');
+    
     heroTimer = setTimeout(() => {
         h1.innerHTML = ORIGINAL_HERO;
-        h1.style.opacity = '1';
+        h1.classList.remove('fade-out');
+        h1.classList.add('fade-in');
     }, 280);
 }
 
@@ -196,8 +208,58 @@ document.addEventListener('DOMContentLoaded', () => {
     // 初始化一言
     initHero();
     
-    // 如果没有 Cookie 同意，显示横幅
     if (!cookieConsent) {
         showCookieBanner();
+    } else {
+        hideCookieBanner();
     }
 });
+
+/* ===== 页面转场 + 进度条 ===== */
+(function() {
+    const progressBar = document.getElementById('page-progress');
+    let progressInterval = null;
+
+    function startProgress() {
+        if (!progressBar) return;
+        progressBar.style.width = '0%';
+        setTimeout(() => { progressBar.style.width = '30%'; }, 50);
+        progressInterval = setInterval(() => {
+            const currentWidth = parseFloat(progressBar.style.width);
+            if (currentWidth < 70) {
+                progressBar.style.width = (currentWidth + 5) + '%';
+            } else {
+                clearInterval(progressInterval);
+            }
+        }, 100);
+    }
+
+    function finishProgress() {
+        if (progressInterval) clearInterval(progressInterval);
+        if (!progressBar) return;
+        progressBar.style.width = '100%';
+        setTimeout(() => {
+            progressBar.style.width = '0%';
+        }, 400);
+    }
+
+    function handleNavigation(e) {
+        const link = e.target.closest('a');
+        if (!link) return;
+        if (link.target === '_blank') return;
+        if (link.href && link.href.startsWith('#')) return;
+        
+        const url = link.href;
+        if (!url || url === window.location.href) return;
+
+        e.preventDefault();
+        
+        startProgress();
+        
+        setTimeout(() => {
+            window.location.href = url;
+        }, 100);
+    }
+
+    document.addEventListener('click', handleNavigation);
+})();

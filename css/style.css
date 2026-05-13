@@ -13,6 +13,7 @@ body.dark-mode {
     --side-text: #E0E0E0;
     --side-border: rgba(255,255,255,0.15);
     --hero-overlay: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.85));
+    --text: #f0f0f0;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -61,6 +62,18 @@ body { background: #000; font-family: 'Noto Sans SC', sans-serif; min-height: 10
     text-align: center;
     line-height: 1.5;
     letter-spacing: 0.04em;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    transform-origin: top center;
+}
+
+#mainHeroText.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+#mainHeroText.fade-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 #mainHeroText .author {
@@ -98,7 +111,15 @@ body { background: #000; font-family: 'Noto Sans SC', sans-serif; min-height: 10
 
 .grid-item:hover {
     border-left-color: var(--accent);
-    box-shadow: 0 0 20px rgba(102, 204, 255, 0.1);
+}
+
+.grid-item:hover .main {
+    color: var(--accent);
+}
+
+.grid-item:hover .sub {
+    color: var(--accent);
+    opacity: 1;
 }
 
 .grid-item .main {
@@ -106,12 +127,14 @@ body { background: #000; font-family: 'Noto Sans SC', sans-serif; min-height: 10
     font-weight: 900;
     display: flex; align-items: center; gap: 8px;
     color: #fff;
+    transition: color 0.3s ease;
 }
 .grid-item .sub {
     font-size: clamp(0.7rem, 1vw, 0.9rem);
     opacity: 0.7;
     margin-top: 4px;
     color: #fff;
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 .arrow { font-size: 1.2rem; opacity: 0.8; }
 
@@ -330,4 +353,158 @@ body.sidebar-open .hero-bg {
         width: 100%;
         padding: 0.7rem;
     }
+}
+
+/* ===== 内容页面（白底模式） ===== */
+/* 把背景色放在 body 上，铺满全屏 */
+body.content-page-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* 内容页不显示 hero 背景 */
+body.content-page-mode .hero-bg {
+    display: none;
+}
+
+/* 内容页的 page-container 透明，但仍然保持内容居中 */
+body.content-page-mode .page-container.content-page {
+    background: transparent;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 4rem;
+}
+
+.page-container.content-page .top-bar .logo,
+.page-container.content-page .top-bar .menu-btn {
+    color: #000000;
+}
+
+/* 面包屑导航 */
+.breadcrumb {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.breadcrumb a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.breadcrumb a:hover {
+    color: var(--accent);
+}
+.breadcrumb .current {
+    font-weight: bold;
+    color: #000;
+}
+
+/* 巨幅标题 */
+.content-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    letter-spacing: -0.02em;
+    color: #000000;
+}
+
+/* 正文段落 */
+.content-body {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #444;
+    max-width: 800px;
+}
+
+/* 内容页 Footer 修正 */
+.page-container.content-page .site-info {
+    color: #333333;
+}
+.page-container.content-page .site-info .icp {
+    color: #66CCFF;
+    transition: color 0.2s ease;
+}
+.page-container.content-page .site-info .icp:hover {
+    color: #88DDFF;
+}
+
+/* ===== 暗黑模式下内容页适配 ===== */
+body.dark-mode.content-page-mode {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+body.dark-mode.content-page-mode .page-container.content-page .top-bar .logo,
+body.dark-mode.content-page-mode .page-container.content-page .top-bar .menu-btn {
+    color: #e0e0e0;
+}
+body.dark-mode.content-page-mode .page-container.content-page .content-title {
+    color: #e0e0e0;
+}
+body.dark-mode.content-page-mode .page-container.content-page .content-body {
+    color: #aaa;
+}
+body.dark-mode.content-page-mode .page-container.content-page .breadcrumb a,
+body.dark-mode.content-page-mode .page-container.content-page .breadcrumb .current {
+    color: #e0e0e0;
+}
+body.dark-mode.content-page-mode .page-container.content-page .site-info {
+    color: #aaa;
+}
+body.dark-mode.content-page-mode .page-container.content-page .site-info .icp {
+    color: #66CCFF;
+}
+
+/* ===== 响应式适配 ===== */
+@media (max-width: 768px) {
+    body.content-page-mode .page-container.content-page {
+        padding: 1.5rem;
+    }
+    
+    .content-title {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+}
+
+@media (max-width: 480px) {
+    body.content-page-mode .page-container.content-page {
+        padding: 1rem;
+    }
+}
+
+/* ===== 顶部进度条 ===== */
+#page-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--accent, #66CCFF);
+    width: 0%;
+    z-index: 9999;
+    transition: width 0.2s ease;
+    pointer-events: none;
+}
+
+/* ===== View Transitions 动画 ===== */
+/* 1. 旧页面退场：向上淡出 + 轻微缩小 */
+::view-transition-old(root) {
+    animation: fadeOutUp 0.35s ease forwards;
+}
+
+/* 2. 新页面进场：从上方滑入 + 淡入 */
+::view-transition-new(root) {
+    animation: slideDownIn 0.5s ease forwards;
+}
+
+@keyframes fadeOutUp {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(-40px) scale(0.96); }
+}
+
+@keyframes slideDownIn {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
 }

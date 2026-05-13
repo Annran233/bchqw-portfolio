@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>内容通用模板</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body id="pageBody" class="content-page-mode">
+    <!-- 顶部进度条 -->
+    <div id="page-progress"></div>
+    <!-- 你原有的 overlay... -->
+    <!-- 背景遮罩（侧边栏用） -->
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- 主容器：加一个 content-page 类，用于切换白底模式 -->
+    <div class="page-container content-page">
+        
+        <!-- ==== 复用 Header ==== -->
+        <header class="top-bar">
+            <div class="logo" onclick="window.location.href = 'index.html'">
+                <span class="logo-icon">✈</span>
+                <span>北川哈气物</span>
+            </div>
+            <div class="menu-btn" onclick="toggleSidebar()">MENU ▾</div>
+        </header>
+
+        <!-- ==== 内容区 ==== -->
+        <main class="content-main">
+            <!-- 面包屑导航（模仿 SVO 格式） -->
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">/</span>
+                <a href="projects.html">Projects</a>
+                <span class="separator">/</span>
+                <span class="current">Select arriving flight</span>
+            </nav>
+
+            <!-- 巨幅标题（仿照 SVO 的 "Select arriving flight"） -->
+            <h1 class="content-title">TEMPLATE</h1>
+
+            <!-- 正文内容 -->
+            <div class="content-body">
+                <p>你可以在这里放置你的作品集、项目介绍或详细的文章内容。</p>
+                <p>这个页面会自动适配你现有的暗黑模式，而且 Header 和 Footer 与主页完全一致。</p>
+            </div>
+        </main>
+
+        <!-- ==== 复用 Footer ==== -->
+        <footer class="site-info">
+            <div class="footer-left">
+                <span>© 2026 北川哈气物 All Rights Reserved | <a href="https://icp.gov.moe/?keyword=20228514" target="_blank" class="icp">萌ICP备20228514号</a></span>
+                <span><a href="/statements.html" class="icp">网站声明</a> | <a href="/privacy.html" class="icp">隐私政策</a> | <a href="https://www.12377.cn" target="_blank" class="icp">网上有害信息举报专区</a> | 亲爱的市民朋友，宁波公安96110系专门针对避免您财产被骗受损而设，请您一旦收到来电，立即接听。</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ==== 复用侧边栏 ==== -->
+    <aside>
+        <div class="sidebar-header">
+            <span class="mode-toggle" onclick="toggleDarkMode()">☽ 模式</span>
+            <span class="close-btn" onclick="toggleSidebar()">✕</span>
+        </div>
+        <ul class="side-nav">
+            <li>航班信息</li>
+            <li>机场服务</li>
+            <li>地图导览</li>
+            <li>关于我们</li>
+        </ul>
+        <div class="sidebar-footer">
+            <p>©2020 - 2026 北川哈气物 All Rights Reserved | <a href="https://icp.gov.moe/?keyword=20228514" target="_blank" class="icp">萌ICP备20228514号</a></p>
+        </div>
+    </aside>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

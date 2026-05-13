@@ -488,23 +488,23 @@ body.dark-mode.content-page-mode .page-container.content-page .site-info .icp {
     pointer-events: none;
 }
 
-/* ===== View Transitions 动画 ===== */
-/* 1. 旧页面退场：向上淡出 + 轻微缩小 */
-::view-transition-old(root) {
-    animation: fadeOutUp 0.35s ease forwards;
-}
-
-/* 2. 新页面进场：从上方滑入 + 淡入 */
-::view-transition-new(root) {
-    animation: slideDownIn 0.5s ease forwards;
-}
-
-@keyframes fadeOutUp {
+/* ===== 页面转场动画 ===== */
+/* 退场动画：向上滑出 + 淡出 */
+@keyframes pageFadeOut {
     from { opacity: 1; transform: translateY(0) scale(1); }
-    to { opacity: 0; transform: translateY(-40px) scale(0.96); }
+    to { opacity: 0; transform: translateY(-30px) scale(0.97); }
 }
 
-@keyframes slideDownIn {
-    from { opacity: 0; transform: translateY(-40px); }
+/* 进场动画：从上方滑入 + 淡入 */
+@keyframes pageSlideIn {
+    from { opacity: 0; transform: translateY(-30px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+body.page-transition-out {
+    animation: pageFadeOut 0.35s ease forwards;
+}
+
+body.page-transition-in {
+    animation: pageSlideIn 0.45s ease forwards;
 }

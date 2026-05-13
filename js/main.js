@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* ===== 页面转场 + 进度条 ===== */
+/* ===== 页面转场动画 + 进度条 ===== */
 (function() {
     const progressBar = document.getElementById('page-progress');
     let progressInterval = null;
@@ -248,18 +248,38 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!link) return;
         if (link.target === '_blank') return;
         if (link.href && link.href.startsWith('#')) return;
-        
+
         const url = link.href;
         if (!url || url === window.location.href) return;
 
         e.preventDefault();
-        
+
+        // 标记即将跳转
+        sessionStorage.setItem('pageTransition', 'out');
+
+        // 启动进度条
         startProgress();
-        
+
+        // 添加退场动画类
+        document.body.classList.add('page-transition-out');
+
+        // 等待动画完成后跳转
         setTimeout(() => {
             window.location.href = url;
-        }, 100);
+        }, 350);
     }
 
     document.addEventListener('click', handleNavigation);
+
+    // 页面加载时检查是否是跳转来的
+    if (sessionStorage.getItem('pageTransition') === 'out') {
+        sessionStorage.setItem('pageTransition', 'in');
+        document.body.classList.add('page-transition-in');
+        
+        // 动画结束后移除类
+        setTimeout(() => {
+            document.body.classList.remove('page-transition-in');
+            sessionStorage.removeItem('pageTransition');
+        }, 500);
+    }
 })();

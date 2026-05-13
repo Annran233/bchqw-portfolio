@@ -254,32 +254,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
 
-        // 标记即将跳转
         sessionStorage.setItem('pageTransition', 'out');
-
-        // 启动进度条
         startProgress();
-
-        // 添加退场动画类
         document.body.classList.add('page-transition-out');
 
-        // 等待动画完成后跳转
         setTimeout(() => {
             window.location.href = url;
-        }, 350);
+        }, 250);
     }
 
     document.addEventListener('click', handleNavigation);
 
-    // 页面加载时检查是否是跳转来的
     if (sessionStorage.getItem('pageTransition') === 'out') {
         sessionStorage.setItem('pageTransition', 'in');
         document.body.classList.add('page-transition-in');
-        
-        // 动画结束后移除类
+
         setTimeout(() => {
             document.body.classList.remove('page-transition-in');
             sessionStorage.removeItem('pageTransition');
-        }, 500);
+        }, 350);
     }
 })();

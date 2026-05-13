@@ -248,15 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     }
 
-    function finishProgress() {
-        if (progressInterval) clearInterval(progressInterval);
-        if (!progressBar) return;
-        progressBar.style.width = '100%';
-        setTimeout(() => {
-            progressBar.style.width = '0%';
-        }, 400);
-    }
-
     function handleNavigation(e) {
         const link = e.target.closest('a');
         if (!link) return;
@@ -267,29 +258,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!url || url === window.location.href) return;
 
         e.preventDefault();
-
-        sessionStorage.setItem('pageTransition', 'active');
         startProgress();
-
-        // 直接跳转，不做退场动画
         window.location.href = url;
     }
 
     document.addEventListener('click', handleNavigation);
 
-    // 新页面加载：从透明淡入
-    if (sessionStorage.getItem('pageTransition') === 'active') {
-        sessionStorage.removeItem('pageTransition');
-        
-        // 新页面初始透明，淡入显示（0.6秒，人类可感知但不突兀）
+    // 内容页加载时自动淡入（不依赖 sessionStorage，生产环境稳定）
+    if (document.body.classList.contains('content-page-mode')) {
         document.body.classList.add('page-transition-in');
-
         setTimeout(() => {
             document.body.classList.remove('page-transition-in');
             document.body.style.opacity = '1';
         }, 600);
     } else {
-        // 直接打开页面，立即显示
+        // 主页不需要动画，直接显示
         document.body.style.opacity = '1';
     }
 })();

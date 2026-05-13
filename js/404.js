@@ -98,12 +98,22 @@ function toggleSidebar() {
     document.body.classList.toggle('sidebar-open');
 }
 
+// 隐藏 Cookie 横幅
+function hideCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    if (banner) {
+        banner.classList.add('hidden');
+    }
+}
+
 // ---------- 启动 ----------
 document.addEventListener('DOMContentLoaded', () => {
     cookieConsent = getCookieConsent();
     initTheme();
-    
+
     if (!cookieConsent) {
         showCookieBanner();
+    } else {
+        hideCookieBanner();
     }
 });

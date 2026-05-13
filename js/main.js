@@ -151,25 +151,30 @@ async function initHero() {
 }
 
 // ---------- 悬停交互 ----------
-// 鼠标移入 Grid 项：显示对应文字（关于/抵达/中转）
+// 鼠标移入 Grid 项：延迟 0.3s 后才显示对应文字
 function changeHeroText(text) {
     if (window.innerWidth <= 600) return;
 
     const h1 = document.getElementById('mainHeroText');
     const newHTML = text;
 
-    if (h1.innerHTML === newHTML) return;
-
     clearTimeout(heroTimer);
-    
-    h1.classList.remove('fade-in');
-    h1.classList.add('fade-out');
-    
+
+    if (h1.innerHTML === newHTML) {
+        endAnimation(h1);
+        return;
+    }
+
+    // 延迟触发：悬停 0.3s 后才真正改变
     heroTimer = setTimeout(() => {
-        h1.innerHTML = newHTML;
-        h1.classList.remove('fade-out');
-        h1.classList.add('fade-in');
-    }, 280);
+        h1.classList.remove('fade-in');
+        h1.classList.add('fade-out');
+
+        heroTimer = setTimeout(() => {
+            h1.innerHTML = newHTML;
+            endAnimation(h1);
+        }, 280);
+    }, 300);
 }
 
 // 鼠标移出 Grid 项：恢复为 ORIGINAL_HERO（一言句子）
@@ -177,18 +182,27 @@ function resetHeroText() {
     if (window.innerWidth <= 600) return;
 
     const h1 = document.getElementById('mainHeroText');
-    if (h1.innerHTML === ORIGINAL_HERO) return;
 
     clearTimeout(heroTimer);
-    
+
+    if (h1.innerHTML === ORIGINAL_HERO) {
+        endAnimation(h1);
+        return;
+    }
+
     h1.classList.remove('fade-in');
     h1.classList.add('fade-out');
-    
+
     heroTimer = setTimeout(() => {
         h1.innerHTML = ORIGINAL_HERO;
-        h1.classList.remove('fade-out');
-        h1.classList.add('fade-in');
+        endAnimation(h1);
     }, 280);
+}
+
+// 结束动画：去掉 fade-out，加上 fade-in 恢复可见
+function endAnimation(h1) {
+    h1.classList.remove('fade-out');
+    h1.classList.add('fade-in');
 }
 
 // ---------- 侧边栏逻辑 ----------
@@ -254,24 +268,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
         e.preventDefault();
 
-        sessionStorage.setItem('pageTransition', 'out');
+        sessionStorage.setItem('pageTransition', 'active');
         startProgress();
-        document.body.classList.add('page-transition-out');
 
-        setTimeout(() => {
-            window.location.href = url;
-        }, 250);
+        // 直接跳转，不做退场动画
+        window.location.href = url;
     }
 
     document.addEventListener('click', handleNavigation);
 
-    if (sessionStorage.getItem('pageTransition') === 'out') {
-        sessionStorage.setItem('pageTransition', 'in');
+    // 新页面加载：从透明淡入
+    if (sessionStorage.getItem('pageTransition') === 'active') {
+        sessionStorage.removeItem('pageTransition');
+        
+        // 新页面初始透明，淡入显示（0.6秒，人类可感知但不突兀）
         document.body.classList.add('page-transition-in');
 
         setTimeout(() => {
             document.body.classList.remove('page-transition-in');
-            sessionStorage.removeItem('pageTransition');
-        }, 350);
+            document.body.style.opacity = '1';
+        }, 600);
+    } else {
+        // 直接打开页面，立即显示
+        document.body.style.opacity = '1';
     }
 })();

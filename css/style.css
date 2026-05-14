@@ -17,7 +17,7 @@ body.dark-mode {
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #000; font-family: 'Noto Sans SC', sans-serif; min-height: 100vh; }
+body { background: #000; font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif; min-height: 100vh; }
 
 .hero-bg {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -26,6 +26,9 @@ body { background: #000; font-family: 'Noto Sans SC', sans-serif; min-height: 10
     z-index: 1;
     filter: blur(0px);
     transition: filter 0.5s ease;
+    background-color: #1a1a2e;
+    will-change: filter;
+    transform: translateZ(0);
 }
 
 .page-container {
@@ -144,6 +147,8 @@ aside {
     transition: right 0.55s cubic-bezier(0.8, 0, 0.2, 1);
     box-shadow: -10px 0 40px rgba(0,0,0,0.6);
     isolation: isolate;
+    will-change: right;
+    contain: layout style;
 }
 body.sidebar-open aside { right: 0; }
 
@@ -363,6 +368,7 @@ body.dark-mode.content-page-mode.sidebar-open .hero-bg {
 body.content-page-mode {
     background-color: #111;
     color: #ffffff;
+    animation: pageFadeIn 0.6s ease-out forwards;
 }
 
 /* 内容页显示 hero 背景 */
@@ -481,9 +487,4 @@ body.dark-mode.content-page-mode .hero-bg {
 @keyframes pageFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
-}
-
-body.page-transition-in {
-    animation: pageFadeIn 0.6s ease-out forwards;
-    will-change: opacity;
 }

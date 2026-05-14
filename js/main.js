@@ -121,19 +121,18 @@ function initTheme() {
 // ---------- 一言获取与解析 ----------
 async function fetchHitokoto() {
     try {
-        const response = await fetch('https://v1.hitokoto.cn/?c=b&c=d&c=e&c=f&c=h&c=i');
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 3000);
+        const response = await fetch('https://v1.hitokoto.cn/?c=b&c=d&c=e&c=f&c=h&c=i', { signal: controller.signal });
+        clearTimeout(timeoutId);
         const data = await response.json();
         
-        // 原始数据：hitokoto 和 from_who/from
         let content = data.hitokoto;
         let author = data.from_who || data.from;
 
-        // 如果作者存在，用 HTML 包裹作者，并添加适当的换行和分隔符
         if (author) {
-            // 返回一段 HTML：正文 + 换行 + 作者（用 span 包裹）
             return `${content}<br><span class="author">—— ${author}</span>`;
         } else {
-            // 没有作者，直接返回正文
             return content;
         }
     } catch (error) {
@@ -268,15 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.addEventListener('click', handleNavigation);
 
-    // 内容页加载时自动淡入（不依赖 sessionStorage，生产环境稳定）
-    if (document.body.classList.contains('content-page-mode')) {
-        document.body.classList.add('page-transition-in');
-        setTimeout(() => {
-            document.body.classList.remove('page-transition-in');
-            document.body.style.opacity = '1';
-        }, 600);
-    } else {
-        // 主页不需要动画，直接显示
-        document.body.style.opacity = '1';
+    if (progressBar) {
+        window.addEventListener('load', () => {
+            progressBar.style.width = '100%';
+            setTimeout(() => { progressBar.style.opacity = '0'; }, 300);
+        });
     }
 })();

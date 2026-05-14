@@ -1,6 +1,7 @@
 本项目是一个受到[谢列梅沃夫亚历山大·普希金国际机场 Международный аэропорт Шереметьево имени А.С.Пушкина](https://www.svo.aero/)风格启发的个人主页。
 
-![Homepage](https://files.seeusercontent.com/2026/05/14/Yd8a/pasted-image-1778763383374.webp)
+<img width="1916" height="863" alt="{0BE795AC-C183-4FB1-9546-13F372123365}" src="https://github.com/user-attachments/assets/bf6cbc7e-94a8-4f71-a8ab-3091472d203a" />
+
 
 本项目现在仍在施工，可能会包括但不限以下情况的各种奇奇怪怪的bug：**消失的背景图片**，**不用CSS的真男人**，**hero文字变成无限大**，**加载时间足足有10坤年**，**Cloudflare祝您新的一年红红火火**，**作者没吃疯狂星期四**等，请勿直接将本项目部署到生产环境中。
 

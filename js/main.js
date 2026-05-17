@@ -12,23 +12,42 @@ let cookieConsent = null;
 
 const GA_MEASUREMENT_ID = 'G-QXMV93M6HE';
 
+function initGAConsentDefault() {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('consent', 'default', {
+        analytics_storage: 'denied'
+    });
+}
+
 function loadGoogleAnalytics() {
-    const script = document.createElement('script');
+    if (window.__gaLoaded) return;
+    window.__gaLoaded = true;
+
+    window.gtag('consent', 'update', {
+        analytics_storage: 'granted'
+    });
+
+    var script = document.createElement('script');
     script.async = true;
     script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
     document.head.appendChild(script);
 
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', GA_MEASUREMENT_ID, {
+    window.gtag('js', new Date());
+    window.gtag('config', GA_MEASUREMENT_ID, {
         anonymize_ip: true,
         send_page_view: true
     });
-    window.gtag = gtag;
 }
 
 function unloadGoogleAnalytics() {
+    if (window.gtag) {
+        window.gtag('consent', 'update', {
+            analytics_storage: 'denied'
+        });
+    }
+
     document.cookie.split(';').forEach(function(c) {
         var name = c.trim().split('=')[0];
         if (name.startsWith('_ga') || name.startsWith('_gid') || name.startsWith('_gat')) {
@@ -36,8 +55,7 @@ function unloadGoogleAnalytics() {
         }
     });
 
-    delete window.gtag;
-    delete window.dataLayer;
+    window.__gaLoaded = false;
 }
 
 // ---------- Cookie 同意相关 ----------
@@ -54,16 +72,15 @@ function getCookieConsent() {
 function setCookieConsent(type) {
     cookieConsent = type;
     
+    localStorage.setItem('cookieConsent', type);
+    
     if (type === 'all') {
-        localStorage.setItem('cookieConsent', type);
-        localStorage.setItem('themeMode', currentThemeMode);
         loadGoogleAnalytics();
     } else {
-        localStorage.removeItem('themeMode');
-        localStorage.setItem('cookieConsent', type);
         unloadGoogleAnalytics();
     }
     
+    saveThemeMode();
     hideCookieBanner();
 }
 
@@ -87,11 +104,8 @@ function showCookieBanner() {
 // 检查系统是否偏好深色模式
 const isSystemDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-// 保存主题设置（仅在用户同意全部 Cookie 时）
 function saveThemeMode() {
-    if (cookieConsent === 'all') {
-        localStorage.setItem('themeMode', currentThemeMode);
-    }
+    localStorage.setItem('themeMode', currentThemeMode);
 }
 
 // 应用主题
@@ -110,7 +124,6 @@ function applyTheme() {
         btn.textContent = '☽ 深色';
     }
     
-    // 保存主题（如果用户同意）
     saveThemeMode();
 }
 
@@ -133,14 +146,10 @@ function setupThemeListener() {
     });
 }
 
-// 初始化主题
 function initTheme() {
-    // 只有在用户同意全部 Cookie 时才读取 localStorage
-    if (cookieConsent === 'all') {
-        const savedMode = localStorage.getItem('themeMode');
-        if (savedMode && ['auto', 'dark', 'light'].includes(savedMode)) {
-            currentThemeMode = savedMode;
-        }
+    const savedMode = localStorage.getItem('themeMode');
+    if (savedMode && ['auto', 'dark', 'light'].includes(savedMode)) {
+        currentThemeMode = savedMode;
     }
     
     applyTheme();
@@ -243,6 +252,8 @@ function toggleSidebar() {
 // 页面加载完毕后获取一言和初始化主题
 document.addEventListener('DOMContentLoaded', () => {
     cookieConsent = getCookieConsent();
+    
+    initGAConsentDefault();
     
     if (cookieConsent === 'all') {
         loadGoogleAnalytics();

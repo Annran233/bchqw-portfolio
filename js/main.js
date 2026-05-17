@@ -10,6 +10,36 @@ let currentThemeMode = 'auto';
 // Cookie 同意状态：'necessary' | 'all' | null
 let cookieConsent = null;
 
+const GA_MEASUREMENT_ID = 'G-QXMV93M6HE';
+
+function loadGoogleAnalytics() {
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID, {
+        anonymize_ip: true,
+        send_page_view: true
+    });
+    window.gtag = gtag;
+}
+
+function unloadGoogleAnalytics() {
+    document.cookie.split(';').forEach(function(c) {
+        var name = c.trim().split('=')[0];
+        if (name.startsWith('_ga') || name.startsWith('_gid') || name.startsWith('_gat')) {
+            document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+        }
+    });
+
+    delete window.gtag;
+    delete window.dataLayer;
+}
+
 // ---------- Cookie 同意相关 ----------
 // 获取 Cookie 同意状态
 function getCookieConsent() {
@@ -24,14 +54,14 @@ function getCookieConsent() {
 function setCookieConsent(type) {
     cookieConsent = type;
     
-    // 用户同意全部：保存所有数据到 localStorage（path=/ 确保全域名生效）
     if (type === 'all') {
         localStorage.setItem('cookieConsent', type);
         localStorage.setItem('themeMode', currentThemeMode);
+        loadGoogleAnalytics();
     } else {
-        // 仅必要：清除非必要数据，但保存同意状态以便下次不显示横幅
         localStorage.removeItem('themeMode');
         localStorage.setItem('cookieConsent', type);
+        unloadGoogleAnalytics();
     }
     
     hideCookieBanner();
@@ -212,13 +242,13 @@ function toggleSidebar() {
 // ---------- 启动 ----------
 // 页面加载完毕后获取一言和初始化主题
 document.addEventListener('DOMContentLoaded', () => {
-    // 先检查 Cookie 同意状态
     cookieConsent = getCookieConsent();
     
-    // 初始化主题（会根据 cookieConsent 决定是否读取 localStorage）
-    initTheme();
+    if (cookieConsent === 'all') {
+        loadGoogleAnalytics();
+    }
     
-    // 初始化一言
+    initTheme();
     initHero();
     
     if (!cookieConsent) {

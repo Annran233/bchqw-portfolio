@@ -1,22 +1,37 @@
+<!--
+  404.html — 404 错误页面
+  =========================
+  结构：
+    1. 顶部栏：logo + MENU 按钮
+    2. 横向无限滚动的 "404 NOT FOUND" 大字（CSS 动画）
+    3. 错误说明 + 返回主页按钮
+    4. 页脚
+    5. Cookie 横幅
+    6. 侧边栏
+    7. 独立脚本：404.js（精简版，含 Cookie、主题、侧边栏）
+-->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 Not Found - 北川哈气物</title>
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="noindex, nofollow">     <!-- 404 页面不让搜索引擎收录 -->
     <meta name="theme-color" content="#111111">
     <link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=Inter:wght@400;900&family=Noto+Sans+SC:wght@700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/404.css">
 </head>
+<!-- 404 页面无 opacity:0（不参与淡入动画，使用 404.js 无动画逻辑） -->
 <body id="pageBody">
 
+    <!-- 侧边栏遮罩 -->
     <div class="overlay" onclick="toggleSidebar()"></div>
 
     <div class="page-container">
         
+        <!-- ===== 顶部栏 ===== -->
         <header class="top-bar">
             <div class="logo" onclick="window.location.href = 'index.html'">
                 <span>北川哈气物</span>
@@ -24,8 +39,10 @@
             <div class="menu-btn" onclick="toggleSidebar()">MENU ▾</div>
         </header>
 
+        <!-- ===== 核心 404 内容 ===== -->
         <main class="error-content">
             
+            <!-- 横向无限滚动的大号 404 文字（CSS @keyframes scroll） -->
             <div class="marquee-wrapper">
                 <div class="marquee-track">
                     <span class="marquee-item">404 NOT FOUND</span>
@@ -41,6 +58,7 @@
                 </div>
             </div>
 
+            <!-- 错误说明和返回按钮 -->
             <div class="error-message">
                 <p>您访问的页面不存在，或者被移动到了其他位置。</p>
                 <p>The page you visited has been moved to a new location or has been deleted.</p>
@@ -48,6 +66,7 @@
             </div>
         </main>
 
+        <!-- ===== 页脚 ===== -->
         <footer class="site-info">
             <div class="footer-left">
                 <span>© 2026 北川哈气物 All Rights Reserved | Made with ❤️ by <a href="https://github.com/Annran233/bchqw-perpage" target="_blank" class="icp">Annran233</a> | <a href="https://icp.gov.moe/?keyword=20228514" target="_blank" class="icp">萌ICP备20228514号</a></span>
@@ -56,6 +75,8 @@
         </footer>
     </div>
 
+    <!-- ===== Cookie 同意横幅 ===== -->
+    <!-- 逻辑同 index.html，由 404.js 独立处理 -->
     <div id="cookie-banner" class="cookie-banner">
         <div class="cookie-content">
             <p>我们使用必要的 Cookie 来确保网站正常运行，并使用可选的 Cookie 来记住您的偏好设置，详情请查看我们的<a href="/privacy.html" class="cookie-link">隐私政策</a>。</p>
@@ -66,6 +87,8 @@
         </div>
     </div>
 
+    <!-- ===== 侧边栏 ===== -->
+    <!-- 与主页结构一致，链接格式统一 -->
     <aside>
         <div class="sidebar-header">
             <span class="mode-toggle" onclick="toggleDarkMode()">☽ 模式</span>
@@ -81,6 +104,7 @@
         </div>
     </aside>
 
+    <!-- 404.js 独立脚本（不含 Hero、一言等功能） -->
     <script defer src="js/404.js"></script>
 </body>
 </html>

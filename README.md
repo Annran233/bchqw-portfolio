@@ -16,15 +16,22 @@
 
 ---
 
-本项目的Stacks
-1. HTML
-2. CSS
-3. JavaScript
-4. GitHub
-5. 人格
+## 本项目的一些小优点
+1. 看着比较简约大气。
+2. GDRP做了一定合规适配（但不多）。
+3. 注释很不错（虽然是AI写的）
+4. 在main.js可以快速启用你的GA4分析。
+~~5. 人格~~
+6. **以上看了不管笑和没笑都祝你今天开心awa。**
+
 ---
 
-本项目的API
+## 本项目的Stacks
+[![My Skills](https://skillicons.dev/icons?i=js,html,css,github)](https://skillicons.dev)
+
+---
+
+## 本项目的API
 1. Hikotoko （一言）
    https://developer.hitokoto.cn/introduce.html
 

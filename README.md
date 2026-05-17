@@ -14,7 +14,7 @@
 
 本项目与[谢列梅沃夫国际机场官方](https://www.svo.aero/)无任何直接联系。
 
----
+
 
 ## 本项目的一些小优点
 1. 看着比较简约大气。
@@ -24,20 +24,16 @@
 ~~5. 人格~~
 6. **以上看了不管笑和没笑都祝你今天开心awa。**
 
----
 
 ## 本项目的Stacks
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,github)](https://skillicons.dev)
 
----
 
 ## 本项目的API
 1. Hikotoko （一言）
    https://developer.hitokoto.cn/introduce.html
 
----
 ## 赞助本项目
-
-由于大部分时间都在狠狠拷打AI技术含量并不高于是不放爱发电了，但是你可以用以下的二维码注册硅基流动，**通过实名认证后双方都能领到等价16CNY可直接抵扣token用量的代金券，你好我也好。**
+由于大部分时间都在狠狠拷打AI技术含量并不高于是不放爱发电了，但是你可以用以下的二维码[注册硅基流动](https://cloud.siliconflow.cn/i/mhyZwQhg)，**通过实名认证后双方都能领到等价16CNY可直接抵扣token用量的代金券，你好我也好。**
 
 ---

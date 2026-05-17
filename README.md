@@ -2,7 +2,7 @@
 
 <img width="1916" height="863" alt="{0BE795AC-C183-4FB1-9546-13F372123365}" src="https://github.com/user-attachments/assets/bf6cbc7e-94a8-4f71-a8ab-3091472d203a" />
 
-
+---
 本项目现在仍在施工，可能会包括但不限以下情况的各种奇奇怪怪的bug：**消失的背景图片**，**不用CSS的真男人**，**hero文字变成无限大**，**加载时间足足有10坤年**，**Cloudflare祝您新的一年红红火火**，**作者没吃疯狂星期四**等，请勿直接将本项目部署到生产环境中。
 
 您可以自行将本项目fork到仓库，根据您的需求进行修改并上线。
@@ -12,3 +12,19 @@
 本项目包含大部分AI生成的代码，如欲获取更多消息，请查看我们的[生成式人工智能使用声明](https://chatongxue.top/AIGC-Statement.html)
 
 本项目与[谢列梅沃夫国际机场官方](https://www.svo.aero/)无任何直接联系。
+
+---
+
+本项目的Stacks
+1. HTML
+2. CSS
+3. JavaScript
+4. GitHub
+5. 人格
+---
+
+本项目的API
+1. Hikotoko （一言）
+   https://developer.hitokoto.cn/introduce.html
+
+---

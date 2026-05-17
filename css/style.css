@@ -460,9 +460,36 @@ body.content-page-mode .page-container.content-page {
 /* 正文段落 */
 .content-body {
     font-size: 1.1rem;
-    line-height: 1.7;
+    line-height: 1.9;
     color: rgba(255,255,255,0.8);
     max-width: 800px;
+}
+
+.content-body p,
+.content-body ul,
+.content-body ol {
+    margin-bottom: 1.2rem;
+}
+
+.content-body li {
+    margin-bottom: 0.4rem;
+}
+
+.content-body h2 {
+    margin-top: 2.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+    scroll-margin-top: 5rem;
+}
+
+.content-body h3 {
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.9);
 }
 
 .content-layout {
@@ -527,13 +554,10 @@ body.content-page-mode .page-container.content-page {
     border-left-color: #66CCFF;
 }
 
-.content-body h2 {
-    scroll-margin-top: 5rem;
-}
-
 /* 内容页 Footer 修正 */
 .page-container.content-page .site-info {
     color: rgba(255,255,255,0.5);
+    padding-bottom: 3rem;
 }
 .page-container.content-page .site-info .icp {
     color: #66CCFF;

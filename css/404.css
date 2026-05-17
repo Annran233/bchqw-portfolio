@@ -1,6 +1,6 @@
 /* css/404.css */
 :root {
-    --accent: #66CCFF;
+    --accent: #FF0000;
     --text: #000000;
     --bg: #ffffff;
     --side-bg: #FFFFFF;
@@ -158,7 +158,7 @@ body {
 }
 
 .footer-left .icp:hover {
-    color: #88DDFF;
+    color: #FF4444;
 }
 
 /* ---- 侧边栏 ---- */
@@ -312,13 +312,12 @@ body.sidebar-open .overlay {
 }
 
 .cookie-content a {
-    color: #66CCFF;
+    color: #FF0000;
     text-decoration: none;
     transition: color 0.2s ease;
 }
-
 .cookie-content a:hover {
-    color: #88DDFF;
+    color: #FF4444;
     text-decoration: underline;
 }
 
@@ -347,7 +346,7 @@ body.sidebar-open .overlay {
 }
 
 .cookie-btn-primary:hover {
-    background: #88DDFF;
+    background: #FF4444;
     transform: translateY(-1px);
 }
 

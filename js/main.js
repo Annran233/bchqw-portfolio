@@ -250,6 +250,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initTheme();
     initHero();
+    initTOC();
     
     if (!cookieConsent) {
         showCookieBanner();
@@ -257,6 +258,27 @@ document.addEventListener('DOMContentLoaded', () => {
         hideCookieBanner();
     }
 });
+
+function initTOC() {
+    var toc = document.getElementById('toc');
+    if (!toc) return;
+
+    var headings = document.querySelectorAll('.content-body h2[id]');
+    if (!headings.length) return;
+
+    var links = toc.querySelectorAll('a');
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                links.forEach(function(link) {
+                    link.classList.toggle('toc-active', link.getAttribute('href') === '#' + entry.target.id);
+                });
+            }
+        });
+    }, { rootMargin: '-20% 0px -75% 0px' });
+
+    headings.forEach(function(h) { observer.observe(h); });
+}
 
 /* ===== 页面转场动画 + 进度条 ===== */
 (function() {

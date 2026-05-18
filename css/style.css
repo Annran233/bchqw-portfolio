@@ -91,8 +91,25 @@ a:hover { color: #88DDFF; }
 /* 社交图标容器：Hero 下方的社交链接 */
 .hero-social {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 1.2rem;
     margin-top: 1.5rem;
+    max-width: 600px;
+}
+
+@media (max-width: 600px) {
+    .hero-social {
+        gap: 0.8rem;
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 380px) {
+    .hero-social {
+        gap: 0.6rem;
+        max-width: 300px;
+    }
 }
 
 /* 社交图标：圆形按钮，半透明底板，hover 上浮 */
@@ -851,4 +868,150 @@ body.dark-mode.content-page-mode .hero-bg {
 @keyframes pageFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+}
+
+/* ===== 微信二维码弹窗 ===== */
+
+/*
+ * 触发元素（首页 hero 社交图标 或 links 页卡片）
+ * 通过 .wechat-trigger 类标记，与 main.js 配合实现弹窗。
+ *
+ * 交互策略（由 main.js 控制）：
+ *   - 默认（index.html）：桌面端 hover 弹出，移动端 click toggle
+ *   - data-wechat-trigger="click"（links.html）：全设备 click toggle
+ *
+ * HTML 结构：
+ *   .wechat-trigger → 触发元素
+ *   #wechatQROverlay  → 半透明遮罩（点击关闭）
+ *   #wechatQRPopup    → 居中弹窗，包含两个二维码卡片
+ *     .wechat-qr-close → 关闭按钮
+ *     .wechat-qr-cards → 卡片容器
+ *       .wechat-qr-card → 单个卡片（公众号 / 视频号）
+ *         img  → 二维码图片（width 固定，max-height 限制纵向拉长）
+ *         span → 标签文字
+ *
+ * 注意事项：
+ *   - 弹窗默认 opacity:0 + pointer-events:none，通过 .active 类激活
+ *   - 微信二维码通常为纵向矩形（含头像/名称），故用 max-height 而非固定高度
+ *   - 弹窗 z-index:9999，遮罩 z-index:9998，确保在 cookie banner 之上
+ */
+
+.wechat-trigger {
+    cursor: pointer;
+}
+
+/*
+ * 半透明遮罩
+ * 覆盖全屏，点击调用 hideWechatQR() 关闭弹窗
+ */
+.wechat-qr-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.wechat-qr-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/*
+ * 弹窗主体
+ * 居中定位，从 scale(0.9) 弹入 + opacity 渐现，玻璃质感
+ */
+.wechat-qr-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);  /* 初始微缩，激活后 scale(1) */
+    z-index: 9999;
+    background: rgba(20,20,30,0.95);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 16px;
+    padding: 2.5rem 2rem 2rem;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wechat-qr-popup.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* 关闭按钮：右上角 ×，hover 变白 */
+.wechat-qr-close {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.wechat-qr-close:hover {
+    color: #fff;
+}
+
+/* 二维码卡片容器：水平排列，居中 */
+.wechat-qr-cards {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* 单个二维码卡片：图片在上，标签在下 */
+.wechat-qr-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/*
+ * 二维码图片
+ * - width 固定 180px，保证清晰度
+ * - max-height 240px 限制纵向拉长，微信二维码通常为纵向矩形
+ * - object-fit: contain 保持原比例不裁剪
+ * - 白色背景 + 6px padding 模拟白边卡片效果
+ */
+.wechat-qr-img {
+    width: 180px;
+    max-height: 240px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 6px;
+    object-fit: contain;
+}
+
+.wechat-qr-label {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    font-weight: 600;
+}
+
+/* 小屏手机：缩小弹窗内边距、卡片间距和图片尺寸 */
+@media (max-width: 480px) {
+    .wechat-qr-popup {
+        padding: 1.8rem 1.2rem 1.6rem;
+    }
+
+    .wechat-qr-cards {
+        gap: 1rem;
+    }
+
+    .wechat-qr-img {
+        width: 140px;
+        max-height: 200px;
+    }
 }

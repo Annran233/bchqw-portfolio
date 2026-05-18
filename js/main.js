@@ -461,3 +461,109 @@ function initTOC() {
         });
     }
 })();
+
+// ---------- 微信二维码弹窗 ----------
+//
+// 交互策略：
+//   默认（index.html 微信图标）：桌面端 hover 弹出，移动端 click toggle
+//   data-wechat-trigger="click"（links.html）：全设备 click toggle
+//
+// 关闭方式：
+//   - 点击遮罩（#wechatQROverlay onclick）
+//   - 点击 × 按钮（.wechat-qr-close onclick）
+//   - 移动端再次点击触发元素
+//   - ESC 键
+//   - hover 模式下鼠标移出弹窗 + 触发元素（0.15s 延迟防误关）
+//
+// 设备检测：
+//   用一次性 touchstart 事件标记 isTouchDevice，避免桌面端误走 click 逻辑。
+
+(function() {
+    // 弹窗 DOM 引用
+    var overlay = document.getElementById('wechatQROverlay');
+    var popup = document.getElementById('wechatQRPopup');
+    if (!overlay || !popup) return;          // 页面无弹窗结构则跳过
+
+    var triggers = document.querySelectorAll('.wechat-trigger');
+    if (!triggers.length) return;            // 无触发元素则跳过
+
+    var hideTimer = null;                    // hover 模式延迟关闭定时器
+    var isTouchDevice = false;               // 触摸设备标记
+
+    // 显示弹窗（取消待执行的关闭定时器）
+    function showQR() {
+        clearTimeout(hideTimer);
+        overlay.classList.add('active');
+        popup.classList.add('active');
+    }
+
+    // 延迟关闭（0.15s 缓冲，防止鼠标在图标和弹窗之间移动时误关）
+    function hideQR() {
+        hideTimer = setTimeout(function() {
+            overlay.classList.remove('active');
+            popup.classList.remove('active');
+        }, 150);
+    }
+
+    // 立即关闭（点击遮罩、×、ESC、移动端 toggle 使用）
+    function hideQRImmediate() {
+        clearTimeout(hideTimer);
+        overlay.classList.remove('active');
+        popup.classList.remove('active');
+    }
+
+    // 暴露到全局，供 onclick="hideWechatQR()" 调用
+    window.hideWechatQR = hideQRImmediate;
+
+    // 检测触摸设备：在首次 touchstart 时标记，仅触发一次
+    window.addEventListener('touchstart', function once() {
+        isTouchDevice = true;
+    }, { once: true, passive: true });
+
+    triggers.forEach(function(trigger) {
+        // 元素有 data-wechat-trigger="click" 时，桌面端也不走 hover
+        var clickOnly = trigger.getAttribute('data-wechat-trigger') === 'click';
+
+        // 桌面端：悬停显示（仅非 clickOnly 且非触摸设备时生效）
+        trigger.addEventListener('mouseenter', function() {
+            if (isTouchDevice || clickOnly) return;
+            showQR();
+        });
+
+        // 桌面端：移出隐藏
+        trigger.addEventListener('mouseleave', function() {
+            if (isTouchDevice || clickOnly) return;
+            hideQR();
+        });
+
+        // 点击切换（移动端 或 clickOnly 标记的元素）
+        trigger.addEventListener('click', function(e) {
+            if (!isTouchDevice && !clickOnly) return;  // 桌面非 clickOnly 跳过
+            e.preventDefault();
+            if (popup.classList.contains('active')) {
+                hideQRImmediate();                       // 已显示 → 关闭
+            } else {
+                showQR();                                // 未显示 → 弹出
+            }
+        });
+    });
+
+    // 鼠标移入弹窗时取消关闭定时器，保持弹窗可见（hover 模式下才有意义）
+    popup.addEventListener('mouseenter', function() {
+        if (isTouchDevice) return;
+        clearTimeout(hideTimer);
+    });
+
+    // 鼠标移出弹窗时重新开始延迟关闭
+    popup.addEventListener('mouseleave', function() {
+        if (isTouchDevice) return;
+        hideQR();
+    });
+
+    // ESC 键立即关闭弹窗
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && popup.classList.contains('active')) {
+            hideQRImmediate();
+        }
+    });
+})();

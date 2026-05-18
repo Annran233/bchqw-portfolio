@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>联系我 - 北川哈气物</title>
-    <meta name="description" content="通过社交媒体、邮箱或其他方式联系北川哈气物，期待与你的交流与合作。">
+    <title>链接 Links - 北川哈气物</title>
+    <meta name="description" content="展示一些链接，并显示了联系方式，期待与你的交流与合作。">
     <meta name="theme-color" content="#111111">
     <link rel="canonical" href="https://chatongxue.top/contact.html">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="联系我 - 北川哈气物">
+    <meta property="og:title" content="链接 Links - 北川哈气物">
     <meta property="og:description" content="通过社交媒体、邮箱或其他方式联系北川哈气物">
     <meta property="og:url" content="https://chatongxue.top/contact.html">
     <meta property="og:image" content="https://img-cfr2.chatongxue.top/202504272356918.webp">
@@ -39,12 +39,12 @@
             <nav class="breadcrumb">
                 <a href="index.html">Home</a>
                 <span class="separator">/</span>
-                <span class="current">Contact</span>
+                <span class="current">Links</span>
             </nav>
 
-            <h1 class="content-title">Contact</h1>
+            <h1 class="content-title">Links</h1>
 
-            <p class="contact-intro">如果你有任何问题或建议，欢迎通过以下方式联系我们。</p>
+            <p class="contact-intro">一些你可以找到我的地方。</p>
 
             <div class="contact-cards">
                 <a href="https://github.com/Annran233" target="_blank" rel="noopener noreferrer" class="contact-card">
@@ -59,19 +59,39 @@
                 </a>
                 <a href="https://space.bilibili.com/518404054" target="_blank" rel="noopener noreferrer" class="contact-card">
                     <span class="contact-card-icon"><i class="fa-brands fa-bilibili"></i></span>
-                    <span class="contact-card-name">Bilibili</span>
+                    <span class="contact-card-name">哔哩哔哩</span>
                     <span class="contact-card-handle">@北川哈气物</span>
                 </a>
-                <a href="https://t.me/chenbc_voight" target="_blank" rel="noopener noreferrer" class="contact-card">
-                    <span class="contact-card-icon"><i class="fa-brands fa-telegram"></i></span>
-                    <span class="contact-card-name">Telegram</span>
-                    <span class="contact-card-handle">@chenbc_voight</span>
+                <a href="https://www.youtube.com/@bchqw" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-brands fa-youtube"></i></span>
+                    <span class="contact-card-name">YouTube</span>
+                    <span class="contact-card-handle">@bchqw</span>
+                </a>
+                <a href="https://weibo.com/u/5974779495" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-brands fa-weibo"></i></span>
+                    <span class="contact-card-name">微博</span>
+                    <span class="contact-card-handle">@北川哈气物</span>
+                </a>
+                <a href="https://x.com/bchqw" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-brands fa-x-twitter"></i></span>
+                    <span class="contact-card-name">X</span>
+                    <span class="contact-card-handle">@bchqw</span>
+                </a>
+                <a href="https://www.facebook.com/voightcbc" target="_blank" rel="noopener noreferrer" class="contact-card">
+                    <span class="contact-card-icon"><i class="fa-brands fa-facebook-f"></i></span>
+                    <span class="contact-card-name">Facebook</span>
+                    <span class="contact-card-handle">Chen Beichuan Voight</span>
                 </a>
                 <a href="https://t.me/chenbc_voight" target="_blank" rel="noopener noreferrer" class="contact-card">
                     <span class="contact-card-icon"><i class="fa-brands fa-telegram"></i></span>
                     <span class="contact-card-name">Telegram</span>
                     <span class="contact-card-handle">何 Evil</span>
                 </a>
+                <span class="contact-card wechat-trigger" tabindex="0" data-wechat-trigger="click">
+                    <span class="contact-card-icon"><i class="fa-brands fa-weixin"></i></span>
+                    <span class="contact-card-name">微信</span>
+                    <span class="contact-card-handle">扫码关注</span>
+                </span>
                 <a href="mailto:chen.bc@chatongxue.top" target="_blank" rel="noopener noreferrer" class="contact-card">
                     <span class="contact-card-icon"><i class="fa-solid fa-envelope"></i></span>
                     <span class="contact-card-name">Email</span>
@@ -111,5 +131,26 @@
     </aside>
 
     <script defer src="js/main.js"></script>
+
+    <!-- ===== 微信二维码弹窗 ===== -->
+    <!--
+      links 页：微信卡片标记了 data-wechat-trigger="click"，
+      全设备（桌面+移动）均通过 click toggle，不走 hover。
+      结构与 index.html 完全一致。
+    -->
+    <div class="wechat-qr-overlay" id="wechatQROverlay" onclick="hideWechatQR()"></div>
+    <div class="wechat-qr-popup" id="wechatQRPopup">
+        <span class="wechat-qr-close" onclick="hideWechatQR()">&times;</span>
+        <div class="wechat-qr-cards">
+            <div class="wechat-qr-card">
+                <img src="https://img-cfr2.chatongxue.top/wechat-qr-mp.webp" alt="微信公众号二维码" class="wechat-qr-img" loading="lazy">
+                <span class="wechat-qr-label">微信公众号</span>
+            </div>
+            <div class="wechat-qr-card">
+                <img src="https://img-cfr2.chatongxue.top/wechat-qr-channel.webp" alt="微信视频号二维码" class="wechat-qr-img" loading="lazy">
+                <span class="wechat-qr-label">微信视频号</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

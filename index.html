@@ -83,7 +83,7 @@
                 <a href="https://www.facebook.com/voightcbc" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook" title="Facebook">
                     <i class="fa-brands fa-facebook-f"></i>
                 </a>
-                <span class="social-icon wechat-trigger" aria-label="微信" title="微信" tabindex="0">
+                <span class="social-icon wechat-trigger" aria-label="微信" title="微信" tabindex="0" data-wechat-trigger="click">
                     <i class="fa-brands fa-weixin"></i>
                 </span>
                 <a href="mailto:chen.bc@chatongxue.top" class="social-icon" aria-label="Email" title="Email">
@@ -171,13 +171,14 @@
         移动端：click 微信图标 → toggle 弹出/关闭
       关闭方式：点击遮罩 / 点击 × / 再次点击图标 / ESC
       结构：半透明遮罩 + 居中弹窗 + 两个二维码卡片（公众号+视频号）
+      图片加载：loading="lazy" 确保弹窗未激活时图片不下载，弹窗激活后浏览器判定"接近视口"才加载
     -->
     <div class="wechat-qr-overlay" id="wechatQROverlay" onclick="hideWechatQR()"></div>
     <div class="wechat-qr-popup" id="wechatQRPopup">
         <!-- 关闭按钮 → 调用全局 hideWechatQR() -->
         <span class="wechat-qr-close" onclick="hideWechatQR()">&times;</span>
         <div class="wechat-qr-cards">
-            <!-- 公众号二维码卡片 -->
+            <!-- 公众号二维码卡片 — 图片首次弹出时从 CDN 下载，后续由浏览器缓存 -->
             <div class="wechat-qr-card">
                 <img src="https://img-cfr2.chatongxue.top/wechat-qr-mf.webp" alt="微信公众号二维码" class="wechat-qr-img" loading="lazy">
                 <span class="wechat-qr-label">微信公众号</span>

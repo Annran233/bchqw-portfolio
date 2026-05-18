@@ -464,19 +464,28 @@ function initTOC() {
 
 // ---------- 微信二维码弹窗 ----------
 //
-// 交互策略：
-//   默认（index.html 微信图标）：桌面端 hover 弹出，移动端 click toggle
-//   data-wechat-trigger="click"（links.html）：全设备 click toggle
+// 概述：点击（或悬停）微信图标/卡片 → 居中弹出双二维码弹窗
 //
-// 关闭方式：
-//   - 点击遮罩（#wechatQROverlay onclick）
-//   - 点击 × 按钮（.wechat-qr-close onclick）
-//   - 移动端再次点击触发元素
-//   - ESC 键
-//   - hover 模式下鼠标移出弹窗 + 触发元素（0.15s 延迟防误关）
+// 交互策略：
+//   - 默认（index.html 微信图标）：桌面端 hover 鼠标移入图标 → 弹出 / 移出图标 → 0.15s 延迟关闭
+//   - data-wechat-trigger="click"（links.html 等）：全设备（含桌面）均走 click toggle
+//   - 移动端（触屏）：统一 click toggle，hover 事件被屏蔽
+//
+// 弹窗内图片加载时机：
+//   - HTML 中 <img loading="lazy"> 仅在弹窗 .active 后浏览器才判定为"接近视口"开始下载
+//   - 弹窗隐藏时 opacity:0 + pointer-events:none，图片不下载，不消耗带宽
+//   - 首次打开后图片由浏览器缓存，后续再开瞬时显示无需重新下载
+//
+// 关闭方式（全部设备通用）：
+//   - 点击半透明遮罩 → onclick="hideWechatQR()"
+//   - 点击右上角 × 按钮 → onclick="hideWechatQR()"
+//   - 移动端 / clickOnly 模式下再次点击触发元素 → toggle 关闭
+//   - 按下 ESC 键 → keydown 监听
+//   - hover 模式下鼠标完全移出触发元素 + 弹窗 → 0.15s 后自动关闭
 //
 // 设备检测：
-//   用一次性 touchstart 事件标记 isTouchDevice，避免桌面端误走 click 逻辑。
+//   用一次性 window.touchstart 事件标记 isTouchDevice=true
+//   标记后不再触发 mouseenter/mouseleave 逻辑，避免桌面端触屏设备误走 hover
 
 (function() {
     // 弹窗 DOM 引用

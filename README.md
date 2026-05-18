@@ -8,7 +8,9 @@
 
 您可以自行将本项目fork到仓库，根据您的需求进行修改并上线。
 
-请勿售卖或倒卖本项目源码，如果您在其他平台购买到了这个源码，**请光速仅退款并举报商家，并提交issue**。
+**请勿售卖或倒卖本项目源码，除非您愿意冒着双亲消失老冯飞天的风险。**
+
+如果您在其他平台购买到了这个源码，**请光速仅退款并举报商家，并提交issue**。
 
 本项目包含大部分AI生成的代码，如欲获取更多消息，请查看我们的[生成式人工智能使用声明](https://chatongxue.top/AIGC-Statement.html)
 
@@ -34,6 +36,6 @@
    https://developer.hitokoto.cn/introduce.html
 
 ## 赞助本项目
-由于大部分时间都在狠狠拷打AI技术含量并不高于是不放爱发电和Buy Me a Coffee了，但是你可以用以下的二维码[注册硅基流动](https://cloud.siliconflow.cn/i/mhyZwQhg)，**通过实名认证后双方都能领到等价16CNY可直接抵扣token用量的代金券，你好我也好。**
+由于大部分时间都在狠狠拷打AI技术含量并不高于是不放爱发电和Buy Me a Coffee了，但是你除了**点个Star以外**，还可以用以下的二维码[注册硅基流动](https://cloud.siliconflow.cn/i/mhyZwQhg)，**通过实名认证后双方都能领到等价16CNY可直接抵扣token用量的代金券，你好我也好。**（仅限中华人民共和国居民身份证持有者）
 <br><img width="400" height="437" alt="file_00000000d6f871fd926da4c00f0ee05e" src="https://github.com/user-attachments/assets/76bb190b-3485-4cf7-aeb7-a5c42ac8eb9a" /></br>
 

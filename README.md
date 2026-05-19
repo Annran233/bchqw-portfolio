@@ -25,7 +25,7 @@
 6. **以上看了不管笑和没笑都祝你今天开心awa。**
 
 ## 开始使用
-请查看我们新的一体化在线文档中心: [Voight no Docs](https://docs.chatongxue.top)
+~~请查看我们新的一体化在线文档中心: [Voight no Docs](https://docs.chatongxue.top)~~ ~~坏菜了HSTS标头整错了等六个月吧~~
 
 ## 本项目的Stacks
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,github)](https://skillicons.dev)

@@ -16,8 +16,6 @@
 
 本项目与[谢列梅沃夫国际机场官方](https://www.svo.aero/)无任何直接联系。
 
-
-
 ## 本项目的一些小优点
 1. 看着比较简约大气。
 2. GDRP做了一定合规适配（但不多）。
@@ -26,6 +24,8 @@
 5. ~~人格~~
 6. **以上看了不管笑和没笑都祝你今天开心awa。**
 
+## 开始使用
+~~请查看我们新的一体化在线文档中心: [Voight no Docs](https://docs.chatongxue.top)~~ ~~坏菜了HSTS标头整错了等六个月吧~~
 
 ## 本项目的Stacks
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,github)](https://skillicons.dev)

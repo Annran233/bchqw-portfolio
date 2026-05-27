@@ -497,7 +497,7 @@ body.sidebar-open .overlay {
 .ext-link-icon svg {
     width: 2.5rem;
     height: 2.5rem;
-    color: #FF0000;
+    color: var(--accent);
     margin-bottom: 1rem;
 }
 
@@ -554,7 +554,7 @@ body.sidebar-open .overlay {
 }
 
 .ext-link-btn-confirm {
-    background: #FF0000;
+    background: var(--accent);
     color: #fff;
 }
 

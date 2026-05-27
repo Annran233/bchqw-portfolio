@@ -118,11 +118,12 @@ function setCookieConsent(type) {
 
     if (type === 'all') {
         loadGoogleAnalytics();
+        localStorage.setItem('themeMode', currentThemeMode);
     } else {
         unloadGoogleAnalytics();
+        localStorage.removeItem('themeMode');
     }
 
-    saveThemeMode();
     hideCookieBanner();
 }
 
@@ -151,9 +152,11 @@ function showCookieBanner() {
 /* 检测系统是否偏好深色模式 */
 const isSystemDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-/* 保存主题模式到 localStorage */
+/* 仅在用户同意全部 Cookie 时保存主题偏好到 localStorage */
 function saveThemeMode() {
-    localStorage.setItem('themeMode', currentThemeMode);
+    if (cookieConsent === 'all') {
+        localStorage.setItem('themeMode', currentThemeMode);
+    }
 }
 
 /*
@@ -221,6 +224,14 @@ function initTheme() {
     setupThemeListener();
 }
 
+// ---------- 工具函数 ----------
+
+function escapeHTML(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+}
+
 // ---------- 一言 API ----------
 
 /*
@@ -241,9 +252,9 @@ async function fetchHitokoto() {
         let author = data.from_who || data.from;
 
         if (author) {
-            return `${content}<br><span class="author">\u2014\u2014 ${author}</span>`;
+            return escapeHTML(content) + '<br><span class="author">\u2014\u2014 ' + escapeHTML(author) + '</span>';
         } else {
-            return content;
+            return escapeHTML(content);
         }
     } catch (error) {
         console.warn('一言获取失败，使用备用文案', error);

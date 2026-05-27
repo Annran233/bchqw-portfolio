@@ -120,6 +120,28 @@ function initTheme() {
     setupThemeListener();
 }
 
+// ---------- 外站跳转确认弹窗 ----------
+
+var extLinkOverlay = document.getElementById('extLinkOverlay');
+var extLinkModal = document.getElementById('extLinkModal');
+var extLinkUrl = document.getElementById('extLinkUrl');
+var extLinkConfirm = document.getElementById('extLinkConfirm');
+
+function showExtLinkModal(url) {
+    if (!extLinkModal || !extLinkOverlay) return;
+    extLinkUrl.textContent = url;
+    extLinkConfirm.href = url;
+    extLinkOverlay.classList.add('active');
+    extLinkModal.classList.add('active');
+}
+
+function closeExtLinkModal() {
+    if (!extLinkModal || !extLinkOverlay) return;
+    extLinkOverlay.classList.remove('active');
+    extLinkModal.classList.remove('active');
+    extLinkConfirm.href = '#';
+}
+
 // ---------- 侧边栏逻辑 ----------
 
 /* 切换侧边栏开/关 */
@@ -148,10 +170,29 @@ document.addEventListener('DOMContentLoaded', () => {
     cookieConsent = getCookieConsent();
     initTheme();
 
-    // 已同意 → 主动隐藏横幅；未同意 → 显示
     if (!cookieConsent) {
         showCookieBanner();
     } else {
         hideCookieBanner();
     }
+
+    document.addEventListener('click', function(e) {
+        var link = e.target.closest('a');
+        if (!link || !link.href) return;
+        if (link.href.startsWith('#')) return;
+
+        var isExternal = link.hostname && link.hostname !== window.location.hostname;
+
+        if (isExternal) {
+            if (link.getAttribute('data-no-ext-confirm') !== null) return;
+            e.preventDefault();
+            showExtLinkModal(link.href);
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && extLinkModal && extLinkModal.classList.contains('active')) {
+            closeExtLinkModal();
+        }
+    });
 });

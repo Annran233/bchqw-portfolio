@@ -406,6 +406,40 @@ function initTOC() {
     headings.forEach(function(h) { observer.observe(h); });
 }
 
+// ---------- 外站跳转确认弹窗 ----------
+
+/*
+ * 拦截所有指向外站的 <a> 链接，弹出确认弹窗
+ * 判断逻辑：href 的 hostname 与当前页面不同即为外站
+ * 排除：# 锚点、javascript: 伪协议、无 href 的链接
+ * 带 data-no-ext-confirm 属性的链接跳过确认（如侧边栏博客链接等已知的可信外链）
+ */
+var extLinkOverlay = document.getElementById('extLinkOverlay');
+var extLinkModal = document.getElementById('extLinkModal');
+var extLinkUrl = document.getElementById('extLinkUrl');
+var extLinkConfirm = document.getElementById('extLinkConfirm');
+
+function showExtLinkModal(url) {
+    if (!extLinkModal || !extLinkOverlay) return;
+    extLinkUrl.textContent = url;
+    extLinkConfirm.href = url;
+    extLinkOverlay.classList.add('active');
+    extLinkModal.classList.add('active');
+}
+
+function closeExtLinkModal() {
+    if (!extLinkModal || !extLinkOverlay) return;
+    extLinkOverlay.classList.remove('active');
+    extLinkModal.classList.remove('active');
+    extLinkConfirm.href = '#';
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && extLinkModal && extLinkModal.classList.contains('active')) {
+        closeExtLinkModal();
+    }
+});
+
 // ---------- 页面转场动画 + 进度条 ----------
 
 /*
@@ -413,15 +447,16 @@ function initTOC() {
  *
  * 功能：
  *   1. 拦截站内链接点击，显示顶部进度条后跳转
- *   2. 内容页面加载时自动执行淡入动画
- *   3. 页面完全加载后进度条走到 100% 然后消失
+ *   2. 拦截站外链接点击，弹出确认弹窗
+ *   3. 内容页面加载时自动执行淡入动画
+ *   4. 页面完全加载后进度条走到 100% 然后消失
  *
  * 不使用 sessionStorage（生产环境不稳定），
  * 改为通过 body.content-page-mode 类判断是否需淡入。
  */
 (function() {
-    const progressBar = document.getElementById('page-progress');
-    let progressInterval = null;
+    var progressBar = document.getElementById('page-progress');
+    var progressInterval = null;
 
     /*
      * 启动进度条模拟动画
@@ -430,9 +465,9 @@ function initTOC() {
     function startProgress() {
         if (!progressBar) return;
         progressBar.style.width = '0%';
-        setTimeout(() => { progressBar.style.width = '30%'; }, 50);
-        progressInterval = setInterval(() => {
-            const currentWidth = parseFloat(progressBar.style.width);
+        setTimeout(function() { progressBar.style.width = '30%'; }, 50);
+        progressInterval = setInterval(function() {
+            var currentWidth = parseFloat(progressBar.style.width);
             if (currentWidth < 70) {
                 progressBar.style.width = (currentWidth + 5) + '%';
             } else {
@@ -442,34 +477,46 @@ function initTOC() {
     }
 
     /*
-     * 拦截站内 <a> 链接点击
-     * 排除：_blank 外链、# 锚点、当前页面
-     * 使用 requestAnimationFrame 给一帧时间渲染进度条再跳转，减少视觉卡顿
+     * 拦截链接点击
+     * - 站内链接：进度条 + 跳转
+     * - 站外链接：弹出确认弹窗
+     * 排除：# 锚点、当前页面、带 data-no-ext-confirm 的外链
      */
     function handleNavigation(e) {
-        const link = e.target.closest('a');
+        var link = e.target.closest('a');
         if (!link) return;
-        if (link.target === '_blank') return;
-        if (link.href && link.href.startsWith('#')) return;
+        if (!link.href) return;
 
-        const url = link.href;
+        if (link.href.startsWith('#')) return;
+
+        var isExternal = link.hostname && link.hostname !== window.location.hostname;
+
+        if (isExternal) {
+            if (link.getAttribute('data-no-ext-confirm') !== null) return;
+            e.preventDefault();
+            showExtLinkModal(link.href);
+            return;
+        }
+
+        if (link.target === '_blank') return;
+
+        var url = link.href;
         if (!url || url === window.location.href) return;
 
         e.preventDefault();
         startProgress();
 
-        requestAnimationFrame(() => {
+        requestAnimationFrame(function() {
             window.location.href = url;
         });
     }
 
     document.addEventListener('click', handleNavigation);
 
-    // 页面完全加载（包括图片）后，进度条走到 100% 然后淡出
     if (progressBar) {
-        window.addEventListener('load', () => {
+        window.addEventListener('load', function() {
             progressBar.style.width = '100%';
-            setTimeout(() => { progressBar.style.opacity = '0'; }, 300);
+            setTimeout(function() { progressBar.style.opacity = '0'; }, 300);
         });
     }
 })();

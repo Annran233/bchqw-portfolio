@@ -118,12 +118,12 @@ function setCookieConsent(type) {
 
     if (type === 'all') {
         loadGoogleAnalytics();
-        localStorage.setItem('themeMode', currentThemeMode);
     } else {
         unloadGoogleAnalytics();
         localStorage.removeItem('themeMode');
     }
 
+    saveThemeMode();
     hideCookieBanner();
 }
 

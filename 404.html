@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,12 @@
     <meta name="theme-color" content="#111111">
     <link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=Inter:wght@400;900&family=Noto+Sans+SC:wght@700;900&display=swap" rel="stylesheet">
+    <link
+        href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=Inter:wght@400;900&family=Noto+Sans+SC:wght@700;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/css/404.css">
 </head>
+
 <body id="pageBody">
 
     <div class="overlay" onclick="toggleSidebar()"></div>
@@ -43,7 +47,9 @@
             <div class="error-message">
                 <p>您访问的页面不存在，或者被移动到了其他位置。</p>
                 <p>The page you visited has been moved to a new location or has been deleted.</p>
-                <a href="/" class="back-home-btn">← 返回主页</a>
+                <p>但是您也许可以给偏远地区的孩子们带去一份午餐？访问<a href="https://love.bilibili.com/detail?uuid=27c2cf8e3d" target="_blank"
+                        rel="noopener noreferrer">哔哩哔哩公益</a>。</p>
+                <a href="/" class="back-home-btn">← 返回到chatongxue.top </a>
             </div>
         </main>
 
@@ -52,7 +58,9 @@
 
     {{> cookie-banner}}
     {{> sidebar}}
+    {{> external-link-modal}}
 
     <script defer src="/js/404.js"></script>
 </body>
+
 </html>

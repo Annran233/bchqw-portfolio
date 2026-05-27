@@ -1,0 +1,18 @@
+<div class="ext-link-overlay" id="extLinkOverlay" onclick="closeExtLinkModal()"></div>
+<div class="ext-link-modal" id="extLinkModal">
+    <span class="ext-link-close" onclick="closeExtLinkModal()">&times;</span>
+    <div class="ext-link-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/>
+            <line x1="10" y1="14" x2="21" y2="3"/>
+        </svg>
+    </div>
+    <h2 class="ext-link-title">即将离开 chatongxue.top</h2>
+    <p class="ext-link-desc">您即将访问外部链接，该链接不在我们的控制范围内。请注意保护个人隐私和财产安全。</p>
+    <p class="ext-link-url" id="extLinkUrl"></p>
+    <div class="ext-link-actions">
+        <button class="ext-link-btn ext-link-btn-cancel" onclick="closeExtLinkModal()">取消</button>
+        <a class="ext-link-btn ext-link-btn-confirm" id="extLinkConfirm" href="#" target="_blank" rel="noopener noreferrer">继续访问</a>
+    </div>
+</div>

@@ -856,6 +856,66 @@ body.dark-mode.content-page-mode .hero-bg {
     pointer-events: none;          /* 不阻挡点击 */
 }
 
+/* ===== iconfont（阿里巴巴图标库） ===== */
+
+/*
+ * 用于补充 Font Awesome Free 不覆盖的中文平台图标
+ * 例如：今日头条、百家号、小红书、知乎、CSDN 等
+ *
+ * 接入步骤：
+ *   1. 打开 iconfont.cn，创建项目，搜索并添加所需图标
+ *   2. 选择「Font Class」方式，生成 CDN 链接
+ *   3. 将链接替换到 index.html / links.html 的 iconfont <link> 中
+ *   4. 使用 <i class="iconfont icon-toutiao"></i> 调用
+ *
+ * 各图标对应的 CSS class 在 iconfont 项目中自定义，
+ * 建议统一命名为 icon-{平台英文名}，如 icon-toutiao, icon-xiaohongshu
+ */
+
+/*
+ * iconfont 基础字体声明
+ * iconfont.cn 生成的 CSS 内已包含 @font-face 声明
+ * 此处仅补充浏览器兼容样式
+ */
+.iconfont {
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * 在 .social-icon（Hero 圆形图标）中嵌入 iconfont
+ * 字体大小自适应父容器 font-size: 1.2rem
+ */
+.hero-social .social-icon .iconfont {
+    font-size: inherit;
+}
+
+/*
+ * 在 .contact-card-icon（链接页矩形卡片图标）中嵌入 iconfont
+ * 继承父容器的 color 和 transition
+ */
+.contact-card-icon .iconfont {
+    font-size: inherit;
+    color: inherit;
+}
+
+.contact-card-icon .svg-icon {
+    width: 1em;
+    height: 1em;
+    display: block;
+    color: inherit;
+}
+
+.contact-card:hover .contact-card-icon .iconfont {
+    color: inherit;
+}
+
+.contact-card:hover .contact-card-icon .svg-icon {
+    color: inherit;
+}
+
 /* ===== 页面转场动画 ===== */
 
 /*

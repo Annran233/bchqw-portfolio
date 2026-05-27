@@ -255,9 +255,10 @@ async function fetchHitokoto() {
  * 初始化 Hero：从远程加载一言句子并显示
  */
 async function initHero() {
+    const h1 = document.getElementById('mainHeroText');
+    if (!h1) return;
     const sentence = await fetchHitokoto();
     ORIGINAL_HERO = sentence;
-    const h1 = document.getElementById('mainHeroText');
     h1.innerHTML = sentence;
 }
 

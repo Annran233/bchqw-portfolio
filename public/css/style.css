@@ -1203,7 +1203,8 @@ body.dark-mode.content-page-mode .hero-bg {
 }
 
 .ext-link-btn-confirm:hover {
-    background: #88DDFF;
+    background: #3399CC;
+    color: #fff;
 }
 
 @media (max-width: 480px) {

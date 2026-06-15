@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {{> head}}
+    <link rel="stylesheet" href="/css/style.css">
+{{{extraHead}}}
+</head>
+<body id="pageBody" class="{{bodyClass}}">
+    <div id="page-progress"></div>
+    <div class="hero-bg"></div>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+
+    <div class="page-container content-page">
+        {{> top-bar}}
+
+        <main class="content-main{{#if toc}} content-main--with-toc{{/if}}">
+            <nav class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">/</span>
+                <span class="current">{{currentPage}}</span>
+            </nav>
+
+            <h1 class="content-title">{{contentTitle}}</h1>
+{{#if toc}}
+            <div class="content-layout">
+{{/if}}

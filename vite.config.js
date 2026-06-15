@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { resolve } from 'path'
 import { readFileSync } from 'fs'
 import { defineConfig } from 'vite'
@@ -102,6 +103,13 @@ function serve404() {
     },
   }
 }
+=======
+import { resolve } from 'path';
+import { defineConfig } from 'vite';
+import handlebars from 'vite-plugin-handlebars';
+import { pageData } from './src/data/pages.js';
+import serve404 from './src/plugins/serve-404.js';
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)
 
 export default defineConfig({
   root: '.',
@@ -111,7 +119,11 @@ export default defineConfig({
     handlebars({
       partialDirectory: resolve(__dirname, 'partials'),
       context(pagePath) {
+<<<<<<< HEAD
         return pageData[pagePath]
+=======
+        return pageData[pagePath];
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)
       },
     }),
     serve404(),
@@ -130,4 +142,8 @@ export default defineConfig({
       },
     },
   },
+<<<<<<< HEAD
 })
+=======
+});
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)

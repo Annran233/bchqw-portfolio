@@ -121,6 +121,11 @@ function setCookieConsent(type) {
     } else {
         unloadGoogleAnalytics();
         localStorage.removeItem('themeMode');
+<<<<<<< HEAD
+=======
+        currentThemeMode = 'auto';
+        applyTheme();
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)
     }
 
     saveThemeMode();
@@ -215,9 +220,17 @@ function setupThemeListener() {
  * 从 localStorage 读取用户偏好，如无则默认 'auto'
  */
 function initTheme() {
+<<<<<<< HEAD
     const savedMode = localStorage.getItem('themeMode');
     if (savedMode && ['auto', 'dark', 'light'].includes(savedMode)) {
         currentThemeMode = savedMode;
+=======
+    if (cookieConsent === 'all') {
+        const savedMode = localStorage.getItem('themeMode');
+        if (savedMode && ['auto', 'dark', 'light'].includes(savedMode)) {
+            currentThemeMode = savedMode;
+        }
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)
     }
 
     applyTheme();
@@ -489,7 +502,15 @@ document.addEventListener('keydown', function(e) {
 
         if (link.href.startsWith('#')) return;
 
+<<<<<<< HEAD
         var isExternal = link.hostname && link.hostname !== window.location.hostname;
+=======
+        var canonicalEl = document.querySelector("link[rel=canonical]");
+        var canonicalHost = canonicalEl ? new URL(canonicalEl.href).hostname : "";
+        var currentHost = window.location.hostname;
+        function sameSite(h) { return h === currentHost || h.endsWith("." + currentHost) || h === canonicalHost || h.endsWith("." + canonicalHost); }
+        var isExternal = link.hostname && !sameSite(link.hostname);
+>>>>>>> 5814db1 (rewrite:通通用vite重写，详见usage)
 
         if (isExternal) {
             if (link.getAttribute('data-no-ext-confirm') !== null) return;

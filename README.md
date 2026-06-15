@@ -1,5 +1,7 @@
 本项目是一个受到[谢列梅沃夫亚历山大·普希金国际机场 Международный аэропорт Шереметьево имени А.С.Пушкина](https://www.svo.aero/)风格启发的个人主页。
 
+现在已经上了新的vite重写
+
 <img width="1920" height="1080" alt="{FF49C4A3-969D-43B8-A66E-2EF129DF67CA}" src="https://github.com/user-attachments/assets/14f436a0-ec5e-44c6-ab1d-e9f920d3efbe" />
 
 ---
@@ -15,8 +17,6 @@
 本项目包含大部分AI生成的代码，如欲获取更多消息，请查看我们的[生成式人工智能使用声明](https://chatongxue.top/AIGC-Statement.html)
 
 本项目与[谢列梅沃夫国际机场官方](https://www.svo.aero/)无任何直接联系。
-
-**Important:在Decouple分支我们在测试新的Vite重写项目。**
 
 ## 本项目的一些小优点
 
